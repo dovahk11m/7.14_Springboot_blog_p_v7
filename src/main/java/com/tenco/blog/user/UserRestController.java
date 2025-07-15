@@ -55,7 +55,7 @@ public class UserRestController {
         UserResponse.LoginDTO loginUser = userService.login(reqDTO); //서비스단에서 loginDTO 반환
 
         //세션에 정보저장
-        session.setAttribute(Define.SESSION_USER, loginUser);
+        //session.setAttribute(Define.SESSION_USER, loginUser);
 
         return ResponseEntity.ok(new ApiUtil<>(loginUser));
 
@@ -105,10 +105,6 @@ public class UserRestController {
         session.invalidate();
         return ResponseEntity.ok(new ApiUtil<>("로그아웃 성공"));
     }
-
-
-
-
 
 
 }//

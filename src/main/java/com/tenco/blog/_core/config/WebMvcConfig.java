@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @RequiredArgsConstructor
-//@Configuration // IoC 처리 (싱글톤 패턴 관리)
+@Configuration // IoC 처리 (싱글톤 패턴 관리)
 public class WebMvcConfig implements WebMvcConfigurer {
 
     // DI 처리(생성자 의존 주입)
@@ -24,7 +24,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         //공개 API는 제외 처리
                 .excludePathPatterns(
                         "/api/boards", //게시글 목록은 누구나 응답받을 수 있음
-                        "/api/boards/{id:\\d+}", //게시글 보기도 누구나
+                        "/api/boards/{id:\\d+}/detail", //게시글 보기도 누구나
                         "/api/auth/login", //로긴 요청도 누구나
                         "/api/auth/join" //가입 요청도 누구나
                 );
