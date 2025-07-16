@@ -25,8 +25,12 @@ repositories {
 
 dependencies {
 
+	// 유효성 검사 추가
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
 	// JPA 의존성 설정 (ORM -- 자바진형 --> JPA(스펙 : 인터페이스) --> 하이버네이트)
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
 	// https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
 	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.10'
 
