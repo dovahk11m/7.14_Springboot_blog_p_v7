@@ -3,7 +3,7 @@ package com.tenco.blog.board;
 
 import com.tenco.blog.reply.Reply;
 import com.tenco.blog.user.User;
-import com.tenco.blog.utils.MyDateUtil;
+import com.tenco.blog._core.utils.MyDateUtil;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -77,7 +77,6 @@ public class Board {
 
     //수정 기능 추가
     public void update(BoardRequest.UpdateDTO updateDTO) {
-        updateDTO.validate();
 
         this.title = updateDTO.getTitle();
         this.content = updateDTO.getContent();

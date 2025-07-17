@@ -2,12 +2,14 @@ package com.tenco.blog.board;
 
 import com.tenco.blog._core.common.ApiUtil;
 import com.tenco.blog.user.User;
-import com.tenco.blog.utils.Define;
+import com.tenco.blog._core.utils.Define;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -50,12 +52,10 @@ public class BoardRestController {
     //게시글 작성
     @PostMapping("/api/boards")
     public ResponseEntity<?> save(
-            @RequestBody BoardRequest.SaveDTO saveDTO,
+            @Valid @RequestBody BoardRequest.SaveDTO saveDTO, Errors errors,
             HttpSession session
     ) {
         log.info("게시글 작성 API - id:{}", saveDTO.getTitle());
-
-        saveDTO.validate();
 
         User sesseionUser = (User) session.getAttribute(Define.SESSION_USER);
 
@@ -68,16 +68,13 @@ public class BoardRestController {
     @PutMapping("/api/boards/{id}")
     public ResponseEntity<?> update(
             @PathVariable(name = "id") Long id,
-            @RequestBody BoardRequest.UpdateDTO updateDTO,
+            @Valid @RequestBody BoardRequest.UpdateDTO updateDTO, Errors errors,
             HttpSession session
     ) {
         log.info("게시글 수정 API 호출 - ID:{}", id);
 
         //인증검사
         User sessionUser = (User) session.getAttribute(Define.SESSION_USER);
-
-        //유효성
-        updateDTO.validate();
 
         BoardResponse.UpdateDTO updateBoard = boardService.update(id, updateDTO, sessionUser);
 
