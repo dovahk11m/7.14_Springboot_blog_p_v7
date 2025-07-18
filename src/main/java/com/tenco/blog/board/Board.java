@@ -85,6 +85,11 @@ public class Board {
 
     }
 
+    //편의메서드 - 유저네임 호출
+    public String getWriterName() {
+        return this.getUser().getUsername();
+    }
+
 
 }
 

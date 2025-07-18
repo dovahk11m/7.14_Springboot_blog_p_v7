@@ -1,9 +1,7 @@
 package com.tenco.blog.reply;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-//@Repository // JpaRepository 상속 <--- 선언 불필요
 public interface ReplyJpaRepository extends JpaRepository<Reply, Long> {
     // CRUD 기능 추가
     // Save(Repley) 댓글 저장

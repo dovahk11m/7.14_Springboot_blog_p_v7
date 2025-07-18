@@ -21,9 +21,7 @@ public class BoardRequest {
         @NotEmpty(message = "내용을 입력해주세요")
         @Size(min = 1, max = 5000, message = "내용은 1~5000자로 작성해주세요")
         private String content;
-        // username 제거 : 세션에서 가져올 예정
 
-        // (User) <-- toEntity() 호출할 때 세션에서 가져와서 넣어 주면 됨
         public Board toEntity(User user) {
             return Board.builder()
                     .title(this.title)
@@ -44,9 +42,6 @@ public class BoardRequest {
         @NotEmpty(message = "내용을 입력해주세요")
         @Size(min = 1, max = 5000, message = "내용은 1~5000자로 작성해주세요")
         private String content;
-
-        // toEntity 메서드 안 만들 예정 (더티 체킹 활용)
-        // em.find() <--- Board <-- 영속화 <-- 상태값을 변경하면 자동 갱신
 
     }
 

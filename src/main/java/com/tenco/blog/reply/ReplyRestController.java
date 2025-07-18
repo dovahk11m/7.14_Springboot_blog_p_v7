@@ -1,35 +1,28 @@
 package com.tenco.blog.reply;
 
 import com.tenco.blog._core.common.ApiUtil;
-import com.tenco.blog.user.User;
 import com.tenco.blog._core.utils.Define;
+import com.tenco.blog.user.SessionUser;
+import com.tenco.blog.user.User;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
-@Controller
-public class ReplyController {
+@RestController
+public class ReplyRestController {
 
     private final ReplyService replyService;
 
     // 댓글 저장 API 요청
     @PostMapping("/api/replies")
     public ResponseEntity<?> save(@Valid @RequestBody ReplyRequest.SaveDTO saveDTO, Errors errors,
-                       HttpSession session) {
-        // 인증 검사 (인터셉터에서 처리)
-
-        // sessionUser
-        User sessionUser = (User) session.getAttribute(Define.SESSION_USER);
-
+                                  @RequestAttribute(Define.SESSION_USER)SessionUser sessionUser
+    ) {
         ReplyResponse.SaveDTO savedReply = replyService.save(saveDTO, sessionUser);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new ApiUtil<>(savedReply));
@@ -39,9 +32,9 @@ public class ReplyController {
     // 댓글 삭제 기능 요청
     @PostMapping("/api/replies/{id}")
     public ResponseEntity<ApiUtil<String>> delete(@PathVariable(name = "id") Long replyId,
-                         @RequestParam(name = "boardId") Long boardId,
-                         HttpSession session) {
-        User sessionUser = (User) session.getAttribute(Define.SESSION_USER);
+                                                  @RequestParam(name = "boardId") Long boardId,
+                                                  @RequestAttribute(Define.SESSION_USER)SessionUser sessionUser
+    ) {
         replyService.deleteById(replyId, sessionUser);
 
         return ResponseEntity.ok(new ApiUtil<>("댓글 삭제 성공"));
